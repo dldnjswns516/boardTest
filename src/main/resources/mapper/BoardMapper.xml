@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+		
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  		
+<mapper namespace="com.team02.template.mapper.BoardMapper">
+		
+	 	
+	<select id="getBoardCount" resultType="int" parameterType="map">
+		
+		SELECT
+			COUNT(*)
+		FROM
+			board as b
+		<where>
+		<!-- 카테고리 검색 -->
+		<if test="searchDto.boardCategory != null and searchDto.boardCategory != 'null' and searchDto.boardCategory != '전체'">
+			board_category = #{searchDto.boardCategory}
+		</if>
+		<!-- 검색 조건 true 일 경우 -->
+		<if test="searchDto.isSearchCheck == 'true'">
+			
+			<!-- searchBy 검색 -->	
+			<if test="searchDto.searchBy == '제목내용'">
+				and (board_title LIKE '%${searchDto.searchInput}%' OR board_content_text LIKE '%${searchDto.searchInput}%')
+			</if>
+			<if test="searchDto.searchBy == '제목만'">
+				and board_title LIKE '%${searchDto.searchInput}%' 
+			</if>
+			<if test="searchDto.searchBy == '글작성자'">
+				and board_writer LIKE '%${searchDto.searchInput}%'
+			</if>
+					
+			<!-- 기간 검색 -->
+			<if test="searchDto.searchDate != '전체기간'">
+				and DATE(b.board_write_date) >= date(subdate(now(), INTERVAL ${searchDto.searchDate} DAY))
+			</if>
+		</if>
+		</where>
+		  
+	</select>
+	
+	<resultMap id="getBoardResult" type="BoardDto">
+
+    	<result property="boardCategory" column="board_category"/>
+    	<result property="boardNum" column="board_num"/>
+    	<result property="boardTitle" column="board_title"/>
+    	<result property="boardContentText" column="board_content_text"/>
+    	<result property="boardWriter" column="board_writer"/>
+    	<result property="boardWriteDate" column="board_write_date"/>
+    	<result property="boardViewCount" column="board_view_count"/>
+    	<result property="boardCommentCount" column="board_comment_count"/>
+    	<result property="boardTimeCheck" column="board_time_check"/>
+
+  	</resultMap>
+
+	<select id="getBoardList" resultMap="getBoardResult" parameterType="map">
+	
+		SELECT
+			board_category, 
+			board_title, 
+			board_content_text, 
+			board_writer, 
+			board_write_date, 
+			board_view_count, 
+			board_num, 
+			board_comment_count,
+			TIMESTAMPDIFF(MINUTE, b.board_write_date, NOW()) AS board_time_check 
+		FROM
+			board as b
+		
+		<where>
+		<if test="searchDto.boardCategory != null and searchDto.boardCategory != 'null' and searchDto.boardCategory != '전체'">
+			board_category = #{searchDto.boardCategory}
+		</if>
+		<!-- 검색 조건 true 일 경우 -->
+		<if test="searchDto.isSearchCheck == 'true'">
+		
+			<!-- searchBy 검색 -->	
+			<if test="searchDto.searchBy == '제목내용'">
+				and (board_title LIKE '%${searchDto.searchInput}%' OR board_content_text LIKE '%${searchDto.searchInput}%')
+			</if>
+			<if test="searchDto.searchBy == '제목만'">
+				and board_title LIKE '%${searchDto.searchInput}%' 
+			</if>
+			<if test="searchDto.searchBy == '글작성자'">
+				and board_writer LIKE '%${searchDto.searchInput}%'
+			</if>
+					
+			<!-- 기간 검색 -->
+			<if test="searchDto.searchDate != '전체기간'">
+				and DATE(b.board_write_date) >= date(subdate(now(), INTERVAL ${searchDto.searchDate} DAY))
+			</if>
+			
+		</if>
+		
+		</where>
+		
+		ORDER BY 
+			board_num DESC
+		LIMIT
+			${pagingDto.limitNum}, ${pagingDto.viewNum}
+		
+	</select>
+	
+</mapper>  
