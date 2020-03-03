@@ -53,8 +53,10 @@
 		var boardList = [[${boardList}]];
 		var pagingDto = [[${pagingDto}]];
 		var searchDto = [[${searchDto}]];
+		var departList = [[${departList}]];
 	/*]]>*/
 		console.log(boardList)
+		console.log(departList)
 		
 
 		var viewNum = pagingDto.viewNum;
@@ -110,6 +112,13 @@
 		    location.href="/boardList?selectPage="+1+"&viewNum="+viewNum+"&boardCategory="+boardCategory+"&isSearchCheck="+isSearchCheck+"&searchBy="+searchBy+"&searchDate="+searchDate+"&searchInput="+searchInput+"";
 		})
 		
+		$('#selectCategory').change(function(){
+			console.log($(this).val())
+			boardCategory = $(this).val();
+			location.href="/boardList?selectPage="+1+"&viewNum="+viewNum+"&boardCategory="+boardCategory+"&isSearchCheck="+isSearchCheck+"&searchBy="+searchBy+"&searchDate="+searchDate+"&searchInput="+searchInput+"";
+		})
+		
+		
 		/* 검색 */
 		$('#searchBtn').click(function(){
 			
@@ -142,7 +151,7 @@
                    <i class="ik ik-credit-card bg-blue"></i>
                    <div class="d-inline">
                        <h5>그룹웨어 게시판</h5>
-                       <span>하하호호</span>
+                       <span>(주)하하호호</span>
                    </div>
                </div>
            </div>
@@ -183,26 +192,36 @@
 				</div>
 			</div>
 			<!------ viewNum 드롭다운 End ----->
+			
+			<!-- 부서 카테고리 셀렉트박스 Start -->
 			<div class="col-md-2" style="padding-left : 0px;">
-			<select class="form-control" id="exampleSelectGender">
-				<option>전  체</option>
-                <option>경영지원팀</option>
-                <option>소프트웨어 개발팀</option>
-            </select>
+				<select class="form-control" id="selectCategory">
+					<option value="전체">전  체</option>
+                	<th:block th:each="d:${departList}">
+                		<th:block th:if ="${#strings.equals(d.departList, searchDto.boardCategory)}">
+                			<option th:value="${d.departList}" selected="selected">[[${d.departList}]] </option>
+                		</th:block>
+                		<th:block th:unless ="${#strings.equals(d.departList, searchDto.boardCategory)}">
+                			<option th:value="${d.departList}">[[${d.departList}]] </option>
+                		</th:block>
+                	</th:block>
+            	</select>
             </div>
+            <!-- 부서 카테고리 셀렉트박스 End -->
+            
 			<!-- 카테고리 버튼 Start -->
-			<div class="categoryBtn">
+			<!-- <div class="categoryBtn">
 				
 				<th:block th:each="b:${pagingDto.btnArr}">
 					<th:block th:if ="${#strings.equals(b, searchDto.boardCategory)}">
-					<button type="button" class="btn btn-primary" th:value="${b}">[[${b}]]</button>
+						<button type="button" class="btn btn-primary" th:value="${b}">[[${b}]]</button>
 					</th:block>
 					<th:block th:unless ="${#strings.equals(b, searchDto.boardCategory)}">
-					<button type="button" class="btn btn-default" th:value="${b}">[[${b}]]</button>
+						<button type="button" class="btn btn-default" th:value="${b}">[[${b}]]</button>
 					</th:block>
 				</th:block>
 				
-			</div>
+			</div> -->
 			<!-- 카테고리 버튼 End -->
 			
 			<!-------------게시판 테이블 Start ------------->
@@ -223,6 +242,31 @@
 				
 				<!-- 등록된 게시글이 있을 경우 -->
 				<th:block th:if="${boardList.size() != 0}">
+					<tr>
+						<td id="number" style="color:#ff4e59"><i class="ik ik-volume-1"></i></td>
+						<th id="category" style="color:#ff4e59">공지</th>
+						<th id="title" style="color:#ff4e59">상반기 회사 성과에 관련하여</th>
+						<td id="writer">작성자</td>
+						<td id="date">작성일</td>
+						<td id="view">조회</td>
+					</tr>
+					<tr>
+						<td id="number" style="color:#ff4e59"><i class="ik ik-volume-1"></i></td>
+						<th id="category" style="color:#ff4e59">공지</th>
+						<th id="title" style="color:#ff4e59">금년 우리 회사의 목표는</th>
+						<td id="writer">작성자</td>
+						<td id="date">작성일</td>
+						<td id="view">조회</td>
+					</tr>
+					<tr>
+						<td id="number" style="color:#ff4e59"><i class="ik ik-volume-1"></i></td>
+						<th id="category" style="color:#ff4e59">공지</th>
+						<th id="title" style="color:#ff4e59">저는 여러분들이 매우 자랑스럽습니다</th>
+						<td id="writer">작성자</td>
+						<td id="date">작성일</td>
+						<td id="view">조회</td>
+					</tr>
+					
 					<th:block th:each="b:${boardList}">
 						<tr>
 							<td th:text="${b.boardNum}"></td>

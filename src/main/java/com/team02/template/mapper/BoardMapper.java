@@ -15,4 +15,6 @@ public interface BoardMapper {
 	
 	public int getBoardCount(Map<String, Object> map);
 	
+	public List<String> getDepartList();
+	
 }

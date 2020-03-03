@@ -54,14 +54,17 @@ public class BoardController {
 		System.out.println(" 컨트롤러 진입시기 searchDto.toString() : "+sDto.toString() );
 		boardMap = boardService.getBoardList(bDto, pDto, sDto);
 		System.out.println("");
-		System.out.println(" 컨트롤러에서 겟보드리스트 후 : "+boardMap.toString() );
+		System.out.println(" 컨트롤러에서 겟보드리스트 후 : "+boardMap.toString());
 		model.addAttribute("boardList", boardMap.get("boardList"));
 		model.addAttribute("pagingDto", boardMap.get("pagingDto"));
 		model.addAttribute("searchDto", boardMap.get("searchDto"));
+		model.addAttribute("departList", boardMap.get("departList"));
 		
 		System.out.println(" 컨트롤러에서 겟보드리스트 후 보드리스트 : "+boardMap.get("boardList"));
 		System.out.println(" 컨트롤러에서 겟보드리스트 후 페이징dto: "+boardMap.get("pagingDto"));
 		System.out.println(" 컨트롤러에서 겟보드리스트 후 서치dto: "+boardMap.get("searchDto"));
+		System.out.println(" 컨트롤러에서 겟보드리스트 후 디파트리스트: "+boardMap.get("departList"));
+		
 		return "board/boardList";
 	}
 	

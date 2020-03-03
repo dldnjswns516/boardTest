@@ -99,6 +99,10 @@ public class BoardService {
 		pDto.setPrevBtn(isPrevBtn);
 		pDto.setNextBtn(isNextBtn);
 		
+		List<String> departList = new ArrayList<String>();
+		departList = boardMapper.getDepartList();
+		System.out.println("디파트리스트 투스트링 : "+departList.toString());
+		
 		
 		System.out.println(sDto.getIsSearchCheck()+ "******************검색중*******************");
 		if("true".equals(sDto.getIsSearchCheck())) {
@@ -127,6 +131,7 @@ public class BoardService {
 		boardMap.put("boardList", boardList);
 		boardMap.put("pagingDto", pDto);
 		boardMap.put("searchDto", sDto);
+		boardMap.put("departList", departList);
 		
 		return boardMap;
 	}
