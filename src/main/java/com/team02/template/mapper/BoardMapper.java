@@ -17,4 +17,6 @@ public interface BoardMapper {
 	
 	public List<String> getDepartList();
 	
+	public List<BoardDto> getBoardNoticeList();
+	
 }

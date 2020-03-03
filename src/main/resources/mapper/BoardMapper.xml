@@ -69,6 +69,26 @@
   		FROM
   			department
   	</select>
+  	
+  	<select id="getBoardNoticeList" resultMap="getBoardResult">
+  		/* 공지사항 셀렉트 */
+  		SELECT
+			board_category, 
+			board_title, 
+			board_content_text, 
+			board_writer, 
+			board_write_date, 
+			board_view_count, 
+			board_num, 
+			board_comment_count,
+			TIMESTAMPDIFF(MINUTE, b.board_write_date, NOW()) AS board_time_check 
+		FROM
+			board as b
+		WHERE
+			board_category = '공지'
+		ORDER BY 
+			board_num DESC
+  	</select>
 
 	<select id="getBoardList" resultMap="getBoardResult" parameterType="map">
 		/* 게시판 리스트 셀렉트 */

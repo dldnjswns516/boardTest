@@ -59,12 +59,12 @@ public class BoardController {
 		model.addAttribute("pagingDto", boardMap.get("pagingDto"));
 		model.addAttribute("searchDto", boardMap.get("searchDto"));
 		model.addAttribute("departList", boardMap.get("departList"));
-		
+		model.addAttribute("boardNoticeList", boardMap.get("boardNoticeList"));
 		System.out.println(" 컨트롤러에서 겟보드리스트 후 보드리스트 : "+boardMap.get("boardList"));
 		System.out.println(" 컨트롤러에서 겟보드리스트 후 페이징dto: "+boardMap.get("pagingDto"));
 		System.out.println(" 컨트롤러에서 겟보드리스트 후 서치dto: "+boardMap.get("searchDto"));
 		System.out.println(" 컨트롤러에서 겟보드리스트 후 디파트리스트: "+boardMap.get("departList"));
-		
+		System.out.println(" 컨트롤러에서 겟보드리스트 후 보드노티스리스트: "+boardMap.get("boardNoticeList"));
 		return "board/boardList";
 	}
 	
