@@ -8,20 +8,21 @@
 		
 	 	
 	<select id="getBoardCount" resultType="int" parameterType="map">
-		
+		/* 게시글 총 개수 구하기 */
 		SELECT
 			COUNT(*)
 		FROM
 			board as b
 		<where>
-		<!-- 카테고리 검색 -->
+		
 		<if test="searchDto.boardCategory != null and searchDto.boardCategory != 'null' and searchDto.boardCategory != '전체'">
+			/* 카테고리 검색 */
 			board_category = #{searchDto.boardCategory}
 		</if>
-		<!-- 검색 조건 true 일 경우 -->
+		
 		<if test="searchDto.isSearchCheck == 'true'">
+			/* 검색 */
 			
-			<!-- searchBy 검색 -->	
 			<if test="searchDto.searchBy == '제목내용'">
 				and (board_title LIKE '%${searchDto.searchInput}%' OR board_content_text LIKE '%${searchDto.searchInput}%')
 			</if>
@@ -32,17 +33,18 @@
 				and board_writer LIKE '%${searchDto.searchInput}%'
 			</if>
 					
-			<!-- 기간 검색 -->
+			
 			<if test="searchDto.searchDate != '전체기간'">
+				/* searchDate값에 따른 기간 검색 */
 				and DATE(b.board_write_date) >= date(subdate(now(), INTERVAL ${searchDto.searchDate} DAY))
 			</if>
 		</if>
 		</where>
 		  
 	</select>
-	
+	<!-- 게시글 셀렉트값 boardDto에 담기 -->
 	<resultMap id="getBoardResult" type="BoardDto">
-
+	
     	<result property="boardCategory" column="board_category"/>
     	<result property="boardNum" column="board_num"/>
     	<result property="boardTitle" column="board_title"/>
@@ -56,7 +58,7 @@
   	</resultMap>
 
 	<select id="getBoardList" resultMap="getBoardResult" parameterType="map">
-	
+		/* 게시판 리스트 셀렉트 */
 		SELECT
 			board_category, 
 			board_title, 
@@ -74,29 +76,33 @@
 		<if test="searchDto.boardCategory != null and searchDto.boardCategory != 'null' and searchDto.boardCategory != '전체'">
 			board_category = #{searchDto.boardCategory}
 		</if>
-		<!-- 검색 조건 true 일 경우 -->
-		<if test="searchDto.isSearchCheck == 'true'">
 		
-			<!-- searchBy 검색 -->	
+		<if test="searchDto.isSearchCheck == 'true'">
+			/* 검색 */
+				
 			<if test="searchDto.searchBy == '제목내용'">
+				/* 제목내용 검색*/
 				and (board_title LIKE '%${searchDto.searchInput}%' OR board_content_text LIKE '%${searchDto.searchInput}%')
 			</if>
 			<if test="searchDto.searchBy == '제목만'">
+				/* 제목만 검색*/
 				and board_title LIKE '%${searchDto.searchInput}%' 
 			</if>
 			<if test="searchDto.searchBy == '글작성자'">
+				/* 글작성자 검색*/
 				and board_writer LIKE '%${searchDto.searchInput}%'
 			</if>
 					
-			<!-- 기간 검색 -->
+			
 			<if test="searchDto.searchDate != '전체기간'">
+				/* searchDate값에 따른 기간 검색 */
 				and DATE(b.board_write_date) >= date(subdate(now(), INTERVAL ${searchDto.searchDate} DAY))
 			</if>
 			
 		</if>
 		
 		</where>
-		
+		/* 페이징 */
 		ORDER BY 
 			board_num DESC
 		LIMIT
