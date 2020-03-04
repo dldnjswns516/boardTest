@@ -8,7 +8,7 @@
 </th:block>
 <th:block layout:fragment="customContents">
 	
-		<div style="padding: 0px 100px 0px 100px;">
+<div class="col-md-12">
 	<div class="page-header" >
        <div class="row align-items-end">
            <div class="col-lg-8">
@@ -34,8 +34,8 @@
                </nav>
            </div>
        </div>
-      </div>
-       <!-- 글쓰기 폼 Start -->
+	</div>
+       		<!-- 디테일 뷰 폼 Start -->
       		<div class="col-md-12" style="padding: 0">
 	            <div class="card" style="min-height: 400px;">
 	                <div class="card-header">
@@ -45,13 +45,18 @@
 	                	<span>2020-03-04 16:53</span>
 	                	</div>
 	                </div>
-	                <div class="card-body">
+	                <div class="card-body" style="position:relative;">
 	                    
                         <div class="form-group row">
-                            <div class="col-md-8" style="padding:0"><label for="exampleInputUsername2" class="col-sm-3 col-form-label">작성자 id</label></div>
-                            <div class="col-md-4"style="text-align:right"><span>첨부파일(1)</span></div>
+                            <div class="col-md-8" style="padding:0 0 0 25px;">
+                            	<i class="ik ik-user"></i>
+                            	<label for="exampleInputUsername2" class="col-sm-3 col-form-label" style="padding:0">작성자 id</label>
+                            </div>
+                            <div class="col-md-4"style="text-align:right">
+                            	<span>첨부파일(1)</span>
+                            </div>
                         </div>
-                        <div style="padding: 0 40px;">
+                        <div style="padding: 0 30px; margin: 40px 0 0 0;">
                         	<tbody>
                         		<p style="margin: 2px 0px;">이러이러 했습니다. 그래서 그러면</p>
                         		<p style="margin: 2px 0px;">이러이러 했습니다. 그래서 그러면</p>
@@ -60,14 +65,52 @@
                         	</tbody>
                         
                         </div>
-                        <div class="col-md-6" style="padding:0; margin: 30px 0 10px 0">
+                        <div class="col-md-6" style="padding:0; margin: 30px 0 10px 0; position:absolute; bottom:0px;">
+
                         	댓글 <span>0</span>ㅣ 조회수 <span>10</span>
                         </div>
-                        
-	                    
 	                </div>
 	            </div>
 	        </div>
+	        <!-- 디테일 뷰 폼 End -->
+	        
+	        <!-- 댓글 폼 Start -->
+	        
+	        <div style="background-color:#ff4e59">
+	        	<ul>
+	        		<li>
+	        			<div>
+	        				<div>윗줄 댓글 작성자<span> 작성 시간</span>
+	        				</div>
+	        				<p>아랫줄 댓글 내용</p>
+	        			</div>
+	        		</li>
+
+	        		<li>밑줄 ----------</li>
+	        	</ul>
+	        	<table >
+	        		<tbody class="col-md-12">
+	        			<tr class="col-md-12">
+	        				<td class="col-md-6">
+	        					<div>
+	        						<textarea rows="3" class="form-control">
+	        						</textarea>
+	        					</div>
+	        				</td>
+	        				<td class="col-md-4">
+	        					<div>
+	        						<a>등록버튼</a>
+	        					</div>
+	        				</td>
+	        			</tr>
+	        		</tbody>
+	        	
+	        	</table>
+	        
+	        </div>
+	        
+	        
+	        <!-- 댓글 폼 End -->
          
              <button type="submit" class="btn btn-primary mr-2">Submit</button>
              <button class="btn btn-light">Cancel</button>
