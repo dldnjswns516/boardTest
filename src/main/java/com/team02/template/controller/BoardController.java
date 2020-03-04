@@ -10,6 +10,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.team02.template.dto.BoardDto;
 import com.team02.template.dto.PagingDto;
@@ -69,18 +74,34 @@ public class BoardController {
 	}
 	
 	
-	@GetMapping("/boardWrite")
-	public String boardWrite(Model model) {
+	@GetMapping("/boardWriteForm")
+	public String boardWriteForm(Model model ) {
 		
-		model.addAttribute("title", "boardWrite");
+		Map<String, Object> boardMap = new HashMap<String, Object>();
+		boardMap = boardService.getDepartList();
+		model.addAttribute("departList", boardMap.get("departList"));
 		
 		return "board/boardWriteForm";
 	}
-	
-	@GetMapping("/boardDetailView")
-	public String BoardDetailView(Model model) {
+	@PostMapping("/boardInsert")
+	public String boardWrite(Model model, BoardDto bDto, RedirectAttributes redirectA ) {
 		
-		model.addAttribute("title", "boardDetailView");
+		System.out.println("보드인서트 비디티오 확인 : "+bDto.toString());
+		Map<String, Object> boardMap = new HashMap<String, Object>();
+		
+		boardMap = boardService.boardInsert(bDto);
+		
+		redirectA.addAttribute("boardNum", boardMap.get("boardNum"));
+		
+		return "redirect:/boardDetailView";
+	}
+
+	@GetMapping("/boardDetailView")
+	public String BoardDetailView(Model model, BoardDto bDto, @RequestParam(value="boardNum", required = false) Object boardNum) {
+		
+		if(boardNum != null) System.out.println("test:" + boardNum.toString());
+		System.out.println("보드디테일뷰 bDto 투스트링 : "+bDto.toString());
+		
 		
 		return "board/boardDetailView";
 	}
@@ -133,14 +154,15 @@ public class BoardController {
 		return "index";
 	}
 	
-	@GetMapping("/ajaxResponse")
-	public String ajaxResponse(Model model) {
+	@PostMapping("/ajaxResponse")
+	public @ResponseBody List<String> ajaxResponse(Model model, @RequestBody BoardDto map) {
 		
+		System.out.println("ajax로 보내진 배열의 값 : {}" + map);
+		System.out.println(map.getBoardCategory());
+		System.out.println(map.getBoardTitle());
 		model.addAttribute("title", "ajaxResponse");
-		
-		return "index";
+		List<String> list = new ArrayList<String>();
+		return list;
 	}
-	
-	
-	
+
 }

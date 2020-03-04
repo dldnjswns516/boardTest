@@ -4,17 +4,119 @@
       layout:decorate="~{layout/default}">
 
 <th:block layout:fragment="customTitle">
-	<title>index</title>
+	<title>boardWriteForm</title>
 </th:block>
+
+
+<th:block layout:fragment="customScript">
+<script type="text/javascript">
+	$(document).ready(function() {
+	    $('#summernote').summernote({
+	            height: 500,                 // set editor height
+	            minHeight: null,             // set minimum height of editor
+	            maxHeight: null,             // set maximum height of editor
+	            focus: true,
+	            lang: 'ko-KR'// set focus to editable area after initializing summernote
+	    });
+	    
+	});
+
+</script>
+</th:block>
+
 <th:block layout:fragment="customContents">
 	
-		말머리 선택
-		제목
-		파일첨부
-		내용 [에디터]
-		(미리보기)
-		확인
+		
+	<!-- 게시판 페이지 헤더 Start -->
+	<div style="padding: 0px 200px 0px 200px;">
+	<div class="page-header" >
+       <div class="row align-items-end">
+           <div class="col-lg-8">
+               <div class="page-header-title">
+                   <i class="ik ik-credit-card bg-blue"></i>
+                   <div class="d-inline">
+                       <h5>그룹웨어</h5>
+                       <span>(주)한국 스마트 정보 교육원</span>
+                   </div>
+               </div>
+           </div>
+           <div class="col-lg-4">
+               <nav class="breadcrumb-container" aria-label="breadcrumb">
+                   <ol class="breadcrumb">
+                       <li class="breadcrumb-item">
+                           <a href="/"><i class="ik ik-home"></i></a>
+                       </li>
+                       <li class="breadcrumb-item">
+                           <a href="/boardList">게시판</a>
+                       </li>
+                       <li class="breadcrumb-item active" aria-current="page">글쓰기</li>
+                   </ol>
+               </nav>
+           </div>
+       </div>
+       <!-- 글쓰기 폼 Start -->
+      
+         
+          <div style="margin: 25px 0 0 0">
+              <form action="/boardInsert" class="forms-sample" method="post">
+                  <div class="row">
+                      <div class="col-md-3">
+                          <div class="form-group">
+                              <label for="exampleSelectGender">구분</label>
+                              <select name="boardCategory" class="form-control" id="exampleSelectGender">
+                              		<option>카테고리 선택</option>
+                              		<option value="공지">공지</option>
+                                  	<th:block th:each="d:${departList}">
+				                		<option th:value="${d.departList}">[[${d.departList}]] </option>
+				                		
+                					</th:block>
+                              </select>
+                          </div>
+                      </div>
+                  </div>
+                  
+                  <div class="row">
+                      <div class="col-md-8">
+                          <div class="form-group">
+                              <label for="exampleInputPassword4">제목</label>
+                      <input name="boardTitle" type="text" class="form-control" placeholder="게시글 제목을 입력하세요">
+                          </div>
+                      </div>
+                  </div>
+                  <div class="row">
+	                  <div class="form-group col-md-4" >
+	                      <label>파일 첨부</label>
+	                      <input type="file" name="img[]" class="file-upload-default">
+	                      <div class="input-group col-xs-4">
+	                          <input type="text" class="form-control file-upload-info" disabled="" placeholder="Upload Image">
+	                          <span class="input-group-append">
+	                          <button class="file-upload-browse btn btn-primary" type="button">첨부</button>
+	                          </span>
+	                      </div>
+	                  </div>
+                  </div>
+                  <div class="row">
+	                  <div class="form-group col-md-12">
+	                      <label for="exampleTextarea1">내용</label>
+	                      <textarea name="boardContentText" id="summernote" ></textarea>
+	                  </div>
+                  </div>
+                  
+                  <button class="btn btn-light float-md-right">취소</button>
+                  <button type="submit" class="btn btn-primary mr-2 float-md-right">확인</button>
+              </form>
+          </div>
+      
+      <!-- 글쓰기폼 End -->
+       
+   </div>
+   </div>
+   
+	
+   
 	 
 	
 </th:block>
+
+
 </html>

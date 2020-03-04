@@ -13,10 +13,10 @@
 		FROM
 			board as b
 		<where>
-		
+			board_category != '공지'
 		<if test="searchDto.boardCategory != null and searchDto.boardCategory != 'null' and searchDto.boardCategory != '전체'">
 			
-			board_category = #{searchDto.boardCategory}
+			and board_category = #{searchDto.boardCategory}
 		</if>
 		
 		<if test="searchDto.isSearchCheck == 'true'">
@@ -106,8 +106,9 @@
 			board as b
 		
 		<where>
+			board_category != '공지'
 		<if test="searchDto.boardCategory != null and searchDto.boardCategory != 'null' and searchDto.boardCategory != '전체'">
-			board_category = #{searchDto.boardCategory}
+			and board_category = #{searchDto.boardCategory}
 		</if>
 		
 		<if test="searchDto.isSearchCheck == 'true'">
@@ -142,5 +143,27 @@
 			${pagingDto.limitNum}, ${pagingDto.viewNum}
 		
 	</select>
+	
+	<select id="getMaxBoardNum" resultType="int">
+		SELECT 
+			max(board_num)
+		FROM 
+			board
+	</select>
+	
+	<insert id="boardInsert" parameterType="BoardDto">
+		INSERT 
+			INTO board
+			(board_category, 
+			board_title, 
+			board_content_text, 
+			board_writer, 
+			board_write_date, 
+			board_view_count, 
+			board_comment_count)
+		VALUES (#{boardCategory}, #{boardTitle}, #{boardContentText}, '관리자', NOW(), 0, 0)
+
+	</insert>
+	
 	
 </mapper>  

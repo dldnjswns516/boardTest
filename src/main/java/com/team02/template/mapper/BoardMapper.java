@@ -19,4 +19,8 @@ public interface BoardMapper {
 	
 	public List<BoardDto> getBoardNoticeList();
 	
+	public void boardInsert(BoardDto bDto);
+	
+	public int getMaxBoardNum();
+	
 }

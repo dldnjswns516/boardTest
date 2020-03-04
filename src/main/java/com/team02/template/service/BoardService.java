@@ -140,4 +140,32 @@ public class BoardService {
 		
 		return boardMap;
 	}
+	
+	
+	public Map<String, Object> getDepartList(){
+
+		List<String> departList = new ArrayList<String>();
+		departList = boardMapper.getDepartList();
+		
+		Map<String, Object> boardMap = new HashMap<String, Object>();
+		
+		boardMap.put("departList", departList);
+
+		return boardMap;
+	}
+	
+	public Map<String, Object> boardInsert(BoardDto bDto){
+
+		boardMapper.boardInsert(bDto);
+		
+		int maxBoardNum = boardMapper.getMaxBoardNum();
+		Map<String, Object> boardMap = new HashMap<String, Object>();
+		boardMap.put("boardNum", maxBoardNum);
+		
+		return boardMap;
+	}
+	
+	
+	
+	
 }

@@ -4,11 +4,82 @@
       layout:decorate="~{layout/default}">
 
 <th:block layout:fragment="customTitle">
-	<title>index</title>
+	<title>boardview</title>
 </th:block>
 <th:block layout:fragment="customContents">
 	
-		board_detail_view 화면입니다.
+		<div style="padding: 0px 100px 0px 100px;">
+	<div class="page-header" >
+       <div class="row align-items-end">
+           <div class="col-lg-8">
+               <div class="page-header-title">
+                   <i class="ik ik-credit-card bg-blue"></i>
+                   <div class="d-inline">
+                       <h5>그룹웨어</h5>
+                       <span>(주)한국 스마트 정보 교육원</span>
+                   </div>
+               </div>
+           </div>
+           <div class="col-lg-4">
+               <nav class="breadcrumb-container" aria-label="breadcrumb">
+                   <ol class="breadcrumb">
+                       <li class="breadcrumb-item">
+                           <a href="/"><i class="ik ik-home"></i></a>
+                       </li>
+                       <li class="breadcrumb-item">
+                           <a href="/boardList">게시판</a>
+                       </li>
+                       <li class="breadcrumb-item active" aria-current="page">상세보기</li>
+                   </ol>
+               </nav>
+           </div>
+       </div>
+      </div>
+       <!-- 글쓰기 폼 Start -->
+      		<div class="col-md-12" style="padding: 0">
+	            <div class="card" style="min-height: 400px;">
+	                <div class="card-header">
+	                	<div class="col-md-8" style="padding:0"><span style="font-weight:bold">상반기 보고서 입니다</span> ㅣ <span>개발팀</span></div>
+	                	<div class="col-md-4" style="text-align:right; padding:0;">
+	                	<span class="badge badge-secondary">전체공개</span>
+	                	<span>2020-03-04 16:53</span>
+	                	</div>
+	                </div>
+	                <div class="card-body">
+	                    
+                        <div class="form-group row">
+                            <div class="col-md-8" style="padding:0"><label for="exampleInputUsername2" class="col-sm-3 col-form-label">작성자 id</label></div>
+                            <div class="col-md-4"style="text-align:right"><span>첨부파일(1)</span></div>
+                        </div>
+                        <div style="padding: 0 40px;">
+                        	<tbody>
+                        		<p style="margin: 2px 0px;">이러이러 했습니다. 그래서 그러면</p>
+                        		<p style="margin: 2px 0px;">이러이러 했습니다. 그래서 그러면</p>
+                        		
+                        		
+                        	</tbody>
+                        
+                        </div>
+                        <div class="col-md-6" style="padding:0; margin: 30px 0 10px 0">
+                        	댓글 <span>0</span>ㅣ 조회수 <span>10</span>
+                        </div>
+                        
+	                    
+	                </div>
+	            </div>
+	        </div>
+         
+             <button type="submit" class="btn btn-primary mr-2">Submit</button>
+             <button class="btn btn-light">Cancel</button>
+      
+      <!-- 글쓰기폼 End -->
+       
+   </div>
+  
+   
+	
+   
+		
 	 
 	
 </th:block>
